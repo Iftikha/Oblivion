@@ -1,0 +1,18 @@
+
+# Ingore Environment variables
+
+.env
+*.env
+
+# Ignore history.txt
+
+history.txt
+history/history.txt
+
+# Ignore exe files
+
+*.exe
+
+# Ignore logs and vscode rubish
+
+.vscode/
