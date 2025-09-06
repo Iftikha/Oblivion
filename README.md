@@ -148,18 +148,6 @@ Oblivion/
 
 ## 🔧 Configuration
 
-### Build Options
-```makefile
-# Build exe file
-make build
-
-# Run the exe file
-make run
-
-# Clean build files
-make clean
-```
-
 ### API Configuration
 - **Model Selection**: Supports `gemini-pro`, `gemini-2.0-flash`
 - **Response Length**: Configurable token limits
