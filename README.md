@@ -189,7 +189,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Iftikhar Ahmed**  
 *Software Engineer & AI Enthusiast*
 
-- GitHub: [@your-username](https://github.com/Iftikha)
+- GitHub: [@Iftikha](https://github.com/Iftikha)
 - Email: iftikhar.ahmed.pakistan.2005@gmail.com
 
 ---
