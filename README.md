@@ -8,7 +8,7 @@
         \/       \/        \/                          \/         \/ 
 ```
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Iftikha/Oblivion)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Iftikha/Oblivion)
 [![Language](https://img.shields.io/badge/language-C++-00599C.svg)](https://isocpp.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
@@ -29,12 +29,19 @@ Oblivion is a modern C++ application that brings the power of large language mod
 - **📝 Local History**: Secure conversation storage with quick access to previous interactions
 - **⚡ Minimal Footprint**: Lightweight architecture with fast startup times
 
-### 🔮 Roadmap (Coming Soon)
-- **🎤 Voice Recognition**: Natural speech input processing
-- **🔊 Text-to-Speech**: AI responses with voice output
-- **🔐 Secure Authentication**: User account management and data protection
-- **⚙️ System Integration**: Execute system commands through natural language
-- **🐧 Cross-Platform**: Linux and macOS support
+### 🔥 New in `feature/new-version` branch
+- **📜 Improved History System**  
+  - Stores conversations in **structured JSON format**  
+  - Retrieves last 7 interactions in clean JSON arrays for better AI context  
+  - Easier to parse and debug conversation logs  
+- **⚙️ System Command Execution**  
+  - Use `>` prefix to run real **Windows commands** safely  
+  - Example:  
+    ```text
+    > run chrome
+    > open notepad
+    ```
+  - Commands are validated before execution to avoid unsafe operations  
 
 ---
 
@@ -103,27 +110,36 @@ cout << "You: Hello Oblivion";
 string response = engine.sendRequest("Hello Oblivion");
 cout << "Oblivion: " << response << endl;
 ```
+## 🚀 Quick Start for `feature/new-version`
 
+```bash
+# Switch to new branch
+git checkout feature/new-version
+
+# Build
+make build
+
+# Run
+make run
+```
 ### Sample Interaction
+
 ```
 === OBLIVION - AI Assistant ===
 Model: gemini-pro
 Welcome, User!
 
-You: Write a Python function to reverse a string
-Oblivion: Processing...
-Oblivion: Here's a simple Python function to reverse a string:
+You: > run chrome
+Oblivion: Executing system command...
+[ Chrome launched ]
 
-def reverse_string(text):
-    return text[::-1]
+You: Write a Python script to print numbers 1-10
+Oblivion: Here's a simple script:
 
-    Example usage
-result = reverse_string("Hello World")
-print(result)  # Output: dlroW olleH
+for i in range(1, 11):
+    print(i)
 
-You: /bye   // To quit the application
-```
-
+You: /bye
 ---
 
 ## 📁 Project Structure
@@ -136,10 +152,16 @@ Oblivion/
 │   ├── json.hpp             # JSON library (included)
 │   ├── Conversation.hpp     # History class header
 │   ├── Conversation.cpp      # History management
+│   ├── CommandParser.hpp     # Parses and Executes Commands Class
+│   ├── CommandParser.cpp      # Parses and executes commands
+│   ├── ResponseHandler.hpp     # Manages the prompt Class
+│   ├── ResponseHanlder.cpp      # Manages Prompt
 │   ├── Engine.hpp          # Engine class header
 │   └── Engine.cpp           # API communication
 ├── history/
 │   └── history.txt          # Conversation storage
+├── commands/
+│   └── commands.json          # Conversation storage
 ├── Makefile                 # Build configuration
 └── README.md               # This file
 ```
