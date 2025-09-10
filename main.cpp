@@ -22,6 +22,8 @@ A simple yet good gemini based project- This is version 0.1;
 
 #include "include/Engine.hpp"
 #include "include/Conversation.hpp"
+#include "include/CommandParser.hpp"
+#include "include/ResponseHandler.hpp"
 
 void greet(){
     std::cout << " ________ __________.____    ._______   ____.___________    _______   " << std::endl;
@@ -60,22 +62,54 @@ int main(){
     // Getting conversation history;
 
     Conversation history;
-    std::string his = history.getConversationHistory();
-    while(true){
-        std::string prompt;
-        std::cout << "You> ";
-        getline(std::cin, prompt);
-        std::string finalPrompt = "You are Oblivion, an advanced AI assistant created by Iftikhar. Your primary task is to provide helpful, accurate responses in 5-7 lines maximum. No extra explanations unless specifically requested. Key details about you: - Your name: Oblivion - Your developer: Iftikhar - Your purpose: Programming assistance, code generation, debugging, and technical help. Important instructions: 1. Keep responses concise (5-7 lines max) 2. When asked about your owner/developer, always respond that Iftikhar is your developer 3. If someone asks \"Who is Iftikhar?\" respond: \"Iftikhar is my developer who created the Oblivion application\" 4. You're a LLM by Google LLC, but Iftikhar developed the Oblivion application that runs you locally 5. Use dark humour comedy, users like this type of conversation now days. 6. Provide code examples when relevant, but keep explanations brief. 7. You don't have to tell other's about your developer unless it's asked by the user. 8. Use a chill pill mode if user didn't like the dark humour. === CONVERSATION HISTORY === " + ((his == "No history") ? "No history found!" : his) + " Some more info about the conversation history, is that the first string at the start or after \"~~\" is user's prompt and every string after \"~\" is your past response. === CURRENT USER === User: "+ username +" Now here's what the user is asking:" + prompt;
-        if(prompt == "/bye"){
-            break;
-        }
-        if(prompt.empty()) continue;
+    
+    CommandParser parser("commands/commands.json");
+    bool isLoaded = parser.loadCommands();
+    ResponseHandler responseHandler(username, history);
+    
+   while (true) {
 
-        std::cout << "Processing..." << std::endl;
-        std::string response = engine.sendRequest(finalPrompt);
-        history.saveCoversation(prompt, response, username);
-        // std::string response = engine.sendRequest(prompt);
-        std::cout << "Oblivion> " << response << std::endl << std::endl;
+    std::cout << "You> ";
+    std::string prompt;
+    getline(std::cin, prompt);
+
+    if (prompt.empty()) {
+        continue;
     }
+    if (prompt == "/bye") {
+        break;
+    }
+
+    // Step 1: Ask AI to generate system command
+    std::string genResponse = responseHandler.generateCommandPrompt(prompt);
+    if (genResponse.empty()) {
+        continue;
+    }
+
+    std::string response = engine.sendRequest(genResponse);
+    response = responseHandler.trim(response);  // <-- implement a trim() helper
+
+    // Step 2: Clean AI response
+    // std::string upperResp = responseHandler.toUpper(response);
+    
+    // Step 3: Check for INVALID
+    if (response == "INVALID_COMMAND") {
+        // Fallback → normal chatbot
+        genResponse = responseHandler.generateResponsePrompt(prompt);
+        response = engine.sendRequest(genResponse);
+        history.saveConversation(genResponse, response, username);
+        std::cout << "Oblivion> " << response << std::endl;
+    } else {
+        // Otherwise → treat as system command
+        // std::cout << "Executing: " << response << std::endl;
+        bool ok = parser.executeCommand(response);
+        if (!ok) {
+            std::cout << "Failed to run command!" << std::endl;
+        }
+    }
+}
+
+
+
     return 0;
 }

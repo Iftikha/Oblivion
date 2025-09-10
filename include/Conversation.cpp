@@ -1,9 +1,9 @@
 #include "Conversation.hpp"
 
-Conversation::Conversation(){
+Conversation::Conversation() {
     this->filename = "history/history.txt";
     
-    // First check if file exists, if not create it
+    // Check if file exists, if not create it
     std::ifstream checkFile(this->filename);
     if (!checkFile.is_open()) {
         std::ofstream createFile(this->filename);
@@ -12,19 +12,18 @@ Conversation::Conversation(){
     checkFile.close();
     
     // Now open for reading
-    std::fstream history(this->filename, std::ios::in);
-    if(!history.is_open()){
+    std::ifstream history(this->filename);
+    if (!history.is_open()) {
         std::cout << "Failed to open History file." << std::endl;
-    }else{
-        std::string prompt, response, username;
-        while(!history.eof()){
-            getline(history, username, '~');
-            getline(history, prompt, '~');
-            getline(history, response);
-            if(!prompt.empty() && !response.empty()) {  // Only add non-empty entries
-                this->prompt.push_back(prompt);
-                this->username.push_back(username);
-                this->response.push_back(response);
+    } else {
+        std::string json_str;
+        while (getline(history, json_str)) {
+            if (json_str.empty()) continue;
+            try {
+                json historyJson = json::parse(json_str);
+                historyJsonVector.push_back(historyJson);
+            } catch (const std::exception& e) {
+                std::cerr << "JSON parse error: " << e.what() << "\nLine: " << json_str << std::endl;
             }
         }
         history.close();
@@ -32,41 +31,45 @@ Conversation::Conversation(){
     }
 }
 
-void Conversation::saveCoversation(std::string prompt, std::string response, std::string username){
-    if(this->filename.empty()){
+void Conversation::saveConversation(std::string prompt, std::string response, std::string username) {
+    if (this->filename.empty()) {
         return;
     }
     
     std::ofstream history(this->filename, std::ios::app);
-    if(!history.is_open()){
+    if (!history.is_open()) {
         std::cout << "Failed to open file. History couldn't save." << std::endl;
         return;
     }
-    std::string str_history = "username: " + username + '~' + prompt + "~" + response + "\n";
-    this->prompt.push_back(prompt);
-    this->response.push_back(response);
-    this->username.push_back(username);
-    history << str_history;
+
+    json historyJson;
+    historyJson["username"] = username;
+    historyJson["prompt"]   = prompt;
+    historyJson["response"] = response;
+
+    std::string str_history = historyJson.dump();
+    this->historyJsonVector.push_back(historyJson);
+
+    history << str_history << "\n";
     history.close();
 }
 
-std::string Conversation::getConversationHistory(){
-    std::string str_history = "";
-    int sizeofPromptVec = this->prompt.size();
-    int sizeofResponseVec = this->response.size();
-    int isizeofUsernameVec = this->username.size();
-    
-    if(sizeofPromptVec == 0 && sizeofResponseVec == 0){
+std::string Conversation::getConversationHistory() {
+    if (historyJsonVector.empty()) {
         return "No history";
     }
-    
-    // Get last 7 conversations (or available count)
-    int historyCount = (sizeofPromptVec < 7) ? sizeofPromptVec: 7;
-    
-    for(int i = 0; i < historyCount; i++){
-        int index = sizeofPromptVec - 1 - i;  // Correct backward indexing
-        str_history += "~~" + this->username[index]+ '~' + this->prompt[index] + "~" + this->response[index] + "\n";
-    }
 
+    int sizeOfVector = historyJsonVector.size();
+    int historyCount = (sizeOfVector < 7) ? sizeOfVector : 7;
+
+    std::string str_history = "{\n";
+    for (int i = 0; i < historyCount; i++) {
+        int index = sizeOfVector - 1 - i;
+        str_history += historyJsonVector[index].dump();
+        if (i != historyCount - 1) {
+            str_history += ",";
+        }
+    }
+    str_history += "\n}";
     return str_history;
 }

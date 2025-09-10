@@ -1,0 +1,190 @@
+{
+  "system_commands": [
+    {
+      "category": "Browser",
+      "command": "start chrome",
+      "aliases": ["open chrome", "launch chrome", "run chrome", "start google chrome", "open google chrome", "launch google chrome"],
+      "description": "Opens Google Chrome browser"
+    },
+    {
+      "category": "Browser",
+      "command": "start firefox",
+      "aliases": ["open firefox", "launch firefox", "run firefox", "start mozilla", "open mozilla", "launch mozilla"],
+      "description": "Opens Mozilla Firefox browser"
+    },
+    {
+      "category": "Browser",
+      "command": "start msedge",
+      "aliases": ["open edge", "launch edge", "run edge", "start edge", "open microsoft edge", "launch microsoft edge"],
+      "description": "Opens Microsoft Edge browser"
+    },
+    {
+      "category": "Text Editor",
+      "command": "start notepad",
+      "aliases": ["open notepad", "launch notepad", "run notepad", "start text editor", "open text editor", "launch text editor"],
+      "description": "Opens Windows Notepad"
+    },
+    {
+      "category": "Code Editor",
+      "command": "code .",
+      "aliases": ["open vscode", "launch vscode", "run vscode", "start vs code", "open vs code", "launch vs code"],
+      "description": "Opens Visual Studio Code"
+    },
+    {
+      "category": "System Tools",
+      "command": "start calc",
+      "aliases": ["open calculator", "launch calculator", "run calculator", "start calculator", "open calc", "launch calc"],
+      "description": "Opens Windows Calculator"
+    },
+    {
+      "category": "System Tools",
+      "command": "start taskmgr",
+      "aliases": ["open task manager", "launch task manager", "run task manager", "start task manager", "open taskmgr", "launch taskmgr"],
+      "description": "Opens Task Manager"
+    },
+    {
+      "category": "System Tools",
+      "command": "start control",
+      "aliases": ["open control panel", "launch control panel", "run control panel", "start control panel", "open settings", "launch settings"],
+      "description": "Opens Control Panel"
+    },
+    {
+      "category": "File Management",
+      "command": "start explorer",
+      "aliases": ["open explorer", "launch explorer", "run explorer", "start file explorer", "open file explorer", "launch file explorer"],
+      "description": "Opens File Explorer"
+    },
+    {
+      "category": "File Management",
+      "command": "mkdir NewFolder",
+      "aliases": ["create folder", "make folder", "new folder", "create directory", "make directory", "new directory"],
+      "description": "Creates a new folder"
+    },
+    {
+      "category": "File Management",
+      "command": "dir",
+      "aliases": ["list files", "show files", "display files", "list directory", "show directory", "display directory"],
+      "description": "Lists files in current directory"
+    },
+    {
+      "category": "System Control",
+      "command": "shutdown /s /t 0",
+      "aliases": ["shutdown", "turn off", "power off", "shut down", "turn off pc", "power off pc"],
+      "description": "Shuts down the computer"
+    },
+    {
+      "category": "System Control",
+      "command": "shutdown /r /t 0",
+      "aliases": ["restart", "reboot", "restart pc", "reboot pc", "restart computer", "reboot computer"],
+      "description": "Restarts the computer"
+    },
+    {
+      "category": "System Control",
+      "command": "rundll32.exe powrprof.dll,SetSuspendState 0,1,0",
+      "aliases": ["sleep", "hibernate", "suspend", "sleep mode", "hibernate mode", "suspend mode"],
+      "description": "Puts computer to sleep"
+    },
+    {
+      "category": "Media",
+      "command": "start wmplayer",
+      "aliases": ["open media player", "launch media player", "run media player", "start media player", "open music player", "launch music player"],
+      "description": "Opens Windows Media Player"
+    },
+    {
+      "category": "Media",
+      "command": "start mspaint",
+      "aliases": ["open paint", "launch paint", "run paint", "start paint", "open drawing", "launch drawing"],
+      "description": "Opens Microsoft Paint"
+    },
+    {
+      "category": "Terminal",
+      "command": "start cmd",
+      "aliases": ["open cmd", "launch cmd", "run cmd", "start command prompt", "open command prompt", "launch command prompt"],
+      "description": "Opens Command Prompt"
+    },
+    {
+      "category": "Terminal",
+      "command": "start powershell",
+      "aliases": ["open powershell", "launch powershell", "run powershell", "start powershell", "open ps", "launch ps"],
+      "description": "Opens PowerShell"
+    },
+    {
+      "category": "Screen Control",
+      "command": "cls",
+      "aliases": ["clear screen", "clear", "clean screen", "clear console", "clean console", "clear terminal"],
+      "description": "Clears the screen"
+    },
+    {
+      "category": "Network",
+      "command": "ipconfig",
+      "aliases": ["show ip", "get ip", "display ip", "show network", "get network", "display network"],
+      "description": "Shows network configuration"
+    },
+    {
+      "category": "Network",
+      "command": "ping google.com",
+      "aliases": ["test internet", "check internet", "ping internet", "test connection", "check connection", "ping connection"],
+      "description": "Tests internet connectivity"
+    },
+    {
+      "category": "Volume Control",
+      "command": "nircmd.exe mutesysvolume 2",
+      "aliases": ["mute volume", "mute sound", "turn off sound", "mute audio", "turn off audio", "silence audio"],
+      "description": "Toggles system volume mute"
+    },
+    {
+      "category": "Volume Control",
+      "command": "nircmd.exe changesysvolume 5000",
+      "aliases": ["volume up", "increase volume", "raise volume", "louder", "turn up volume", "boost volume"],
+      "description": "Increases system volume"
+    },
+    {
+      "category": "Volume Control",
+      "command": "nircmd.exe changesysvolume -5000",
+      "aliases": ["volume down", "decrease volume", "lower volume", "quieter", "turn down volume", "reduce volume"],
+      "description": "Decreases system volume"
+    },
+    {
+      "category": "System Info",
+      "command": "systeminfo",
+      "aliases": ["system info", "system information", "pc info", "computer info", "show system", "display system"],
+      "description": "Shows system information"
+    },
+    {
+      "category": "Process Management",
+      "command": "tasklist",
+      "aliases": ["show processes", "list processes", "display processes", "show tasks", "list tasks", "display tasks"],
+      "description": "Lists running processes"
+    },
+    {
+      "category": "Process Management",
+      "command": "taskkill /f /im chrome.exe",
+      "aliases": ["kill chrome", "close chrome", "end chrome", "stop chrome", "terminate chrome", "quit chrome"],
+      "description": "Forcefully closes Chrome"
+    },
+    {
+      "category": "File Operations",
+      "command": "copy",
+      "aliases": ["copy file", "duplicate file", "copy files", "duplicate files", "file copy", "files copy"],
+      "description": "Copies files"
+    },
+    {
+      "category": "File Operations",
+      "command": "del",
+      "aliases": ["delete file", "remove file", "delete files", "remove files", "file delete", "files delete"],
+      "description": "Deletes files"
+    },
+    {
+      "category": "Time & Date",
+      "command": "time /t",
+      "aliases": ["show time", "get time", "display time", "current time", "what time", "tell time"],
+      "description": "Shows current time"
+    },
+    {
+      "category": "Time & Date",
+      "command": "date /t",
+      "aliases": ["show date", "get date", "display date", "current date", "what date", "tell date"],
+      "description": "Shows current date"
+    }
+  ]
+}
