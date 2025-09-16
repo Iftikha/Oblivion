@@ -1,6 +1,7 @@
 #include "CommandParser.hpp"
 #include <windows.h>
 #include <shellapi.h>
+#include <cctype>
 
 CommandParser::CommandParser(std::string filename){
     this->filename = filename;
@@ -183,4 +184,24 @@ void CommandParser::showCommands(std::string category){
 
 bool CommandParser::isReady() const {
     return loaded;
+}
+
+float CommandParser::checkCommandValidity(std::string user_input){
+    std::string keywords[] = {"open", "launch", "run", "play", "search"};
+    std::string found_word = "";
+    float results = 0.0;
+    for(const auto& c : user_input){
+        if(isalnum(c)){
+            found_word += c;
+        }else{
+            for(std::string str : keywords){
+                if(found_word == str){
+                    results += 0.4;
+                }
+            }
+            found_word = "";
+        }
+    }
+
+    return results;
 }

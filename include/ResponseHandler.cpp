@@ -39,10 +39,9 @@ std::string ResponseHandler::generateResponsePrompt(std::string user_input){
         "6. Provide code examples when relevant, but keep explanations brief. "
         "7. You don't have to tell other's about your developer unless it's asked by the user. "
         "8. Use a chill pill mode if user didn't like the dark humour. "
+        "9. Consider the history to make the chat consistant. "
         "=== CONVERSATION HISTORY === " + 
         ((his == "No history") ? "No history found!" : his) + 
-        " Some more info about the conversation history, is that the first string at the start or after \"~~\" is user's prompt "
-        "and every string after \"~\" is your past response. "
         "=== CURRENT USER === User: " + username + 
         " Now here's what the user is asking: " + user_input;
 

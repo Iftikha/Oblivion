@@ -20,6 +20,7 @@ class CommandParser{
         bool isCommandSafe(const std::string command);
         void showCommands(std::string category = "");
         bool isReady() const ;
+        float checkCommandValidity(std::string user_input);
 
     private:
         json command_db;

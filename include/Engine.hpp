@@ -9,7 +9,7 @@ class Engine{
 
         void init();
         std::string sendRequest(std::string prompt);
-
+        
     private:
         std::string GEMINI_API_KEY;
         std::string GEMINI_MODEL;

@@ -86,20 +86,26 @@ int main(){
         continue;
     }
 
-    std::string response = engine.sendRequest(genResponse);
-    response = responseHandler.trim(response);  // <-- implement a trim() helper
+
+    float result = parser.checkCommandValidity(prompt);
+
+    std::string response = "";
+    if(result > 0.3){
+        response = engine.sendRequest(genResponse);
+        response = responseHandler.trim(response);  // <-- implement a trim() helper
+    }
 
     // Step 2: Clean AI response
     // std::string upperResp = responseHandler.toUpper(response);
     
     // Step 3: Check for INVALID
-    if (response == "INVALID_COMMAND") {
+    if (response == "INVALID_COMMAND" || response == "") {
         // Fallback → normal chatbot
         genResponse = responseHandler.generateResponsePrompt(prompt);
         response = engine.sendRequest(genResponse);
-        history.saveConversation(genResponse, response, username);
+        history.saveConversation(prompt, response, username);
         std::cout << "Oblivion> " << response << std::endl;
-    } else {
+    } else if(response != "") {
         // Otherwise → treat as system command
         // std::cout << "Executing: " << response << std::endl;
         bool ok = parser.executeCommand(response);
