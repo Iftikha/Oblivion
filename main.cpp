@@ -114,7 +114,6 @@ int main(){
         history.saveConversation(prompt, response, username);
         ResponseHandler audioGenerator(apikey);
         std::string filename = audioGenerator.generateAudio(response);
-        std::cout << filename << std::endl;
         if(filename.find(".wav")){
             std::thread audioThread(&ResponseHandler::playAudio, &audioGenerator, filename);
             audioThread.detach();
