@@ -8,7 +8,7 @@
         \/       \/        \/                          \/         \/ 
 ```
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Iftikha/Oblivion)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/Iftikha/Oblivion)
 [![Language](https://img.shields.io/badge/language-C++-00599C.svg)](https://isocpp.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
@@ -21,27 +21,9 @@ Oblivion is a modern C++ application that brings the power of large language mod
 
 ## 🌟 Key Features
 
-### Current (v1.0.0)
-- **🚀 High Performance**: Runs efficiently on standard hardware without GPU requirements
-- **💬 Intelligent Conversations**: Advanced chat system with persistent conversation history  
-- **🔗 Cloud-Powered**: Leverages Google's Gemini API for state-of-the-art AI responses
-- **💻 Programming-Focused**: Specialized assistance for development tasks and code generation
-- **📝 Local History**: Secure conversation storage with quick access to previous interactions
-- **⚡ Minimal Footprint**: Lightweight architecture with fast startup times
-
-### 🔥 New in `feature/new-version` branch
-- **📜 Improved History System**  
-  - Stores conversations in **structured JSON format**  
-  - Retrieves last 7 interactions in clean JSON arrays for better AI context  
-  - Easier to parse and debug conversation logs  
-- **⚙️ System Command Execution**  
-  - Use `>` prefix to run real **Windows commands** safely  
-  - Example:  
-    ```text
-    > run chrome
-    > open notepad
-    ```
-  - Commands are validated before execution to avoid unsafe operations  
+### 🔥 New in `v3.0` branch
+-- Unnecessary API calls canceled.
+-- TTS integratred
 
 ---
 
@@ -110,12 +92,11 @@ cout << "You: Hello Oblivion";
 string response = engine.sendRequest("Hello Oblivion");
 cout << "Oblivion: " << response << endl;
 ```
-## 🚀 Quick Start for `feature/new-version`
+## 🚀 Quick Start for `v3.0`
 
 ```bash
 # Switch to new branch
-git checkout feature/new-version
-
+git checkout v3.0
 # Build
 make build
 
@@ -148,6 +129,7 @@ You: /bye
 Oblivion/
 |
 ├── main.cpp               # Application entry point
+├── audio_output/          # Saves the TTS audio files
 ├── include/
 │   ├── json.hpp             # JSON library (included)
 │   ├── Conversation.hpp     # History class header
@@ -239,18 +221,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 Version History
 
-### v1.0.0 (Current)
+### v1.0.0 (Old)
 - ✅ Core chat functionality
 - ✅ Conversation history
 - ✅ Gemini API integration
 - ✅ Windows support
 
-### v1.1.0 (Planned)
-- 🔄 Voice input/output
-- 🔄 System command execution
-- 🔄 Enhanced security
+### v2.0.0 (Old)
+- ✅ System commands execution
 
-### v2.0.0 (Future)
+### v3.0.0 (Current)
+- 🔄 TTS Integrated
+
+### v4.0.0 (Future)
 - 🔄 Cross-platform support
 - 🔄 Plugin architecture
 - 🔄 Advanced automation
