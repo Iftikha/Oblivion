@@ -16,3 +16,7 @@ history/history.txt
 # Ignore logs and vscode rubish
 
 .vscode/
+
+# Ignore audio files
+
+audio_output/*.wav

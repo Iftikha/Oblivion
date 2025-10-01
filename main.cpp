@@ -7,19 +7,30 @@ ________ __________.____    ._______   ____.___________    _______
 \_______  /______  /_______ \___|  \___/   |___\_______  /\____|__  /
         \/       \/        \/                          \/         \/ 
 
-A simple yet good gemini based project- This is version 0.1;
+A simple yet good gemini based project- This is version 3.0;
+Here's a small paragraph about the project:
+
+This project is a C++ console application that acts as an AI assistant, utilizing the Gemini model via
+API calls. It combines a conversational interface with system-level command execution, allowing users to
+interact with a smart chatbot that can also perform tasks like opening applications, searching the web,
+or shutting down the computer. The program includes features for conversation history, and can even
+generate and play audio responses, providing a more dynamic and engaging user experience.
 
 */
 
 
 
 
+
+
+
+
+
+
 #include <iostream>
 #include <fstream>
-// #include "./libraries/json.hpp"
-
-// using json = nlohmann::json;
-
+#include <thread>
+#include <chrono>
 #include "include/Engine.hpp"
 #include "include/Conversation.hpp"
 #include "include/CommandParser.hpp"
@@ -64,7 +75,7 @@ int main(){
     Conversation history;
     
     CommandParser parser("commands/commands.json");
-    bool isLoaded = parser.loadCommands();
+    parser.loadCommands();
     ResponseHandler responseHandler(username, history);
     
    while (true) {
@@ -92,30 +103,35 @@ int main(){
     std::string response = "";
     if(result > 0.3){
         response = engine.sendRequest(genResponse);
-        response = responseHandler.trim(response);  // <-- implement a trim() helper
+        response = responseHandler.trim(response); 
     }
 
-    // Step 2: Clean AI response
-    // std::string upperResp = responseHandler.toUpper(response);
-    
     // Step 3: Check for INVALID
     if (response == "INVALID_COMMAND" || response == "") {
         // Fallback → normal chatbot
         genResponse = responseHandler.generateResponsePrompt(prompt);
         response = engine.sendRequest(genResponse);
         history.saveConversation(prompt, response, username);
-        std::cout << "Oblivion> " << response << std::endl;
+        ResponseHandler audioGenerator(apikey);
+        std::string filename = audioGenerator.generateAudio(response);
+        std::cout << filename << std::endl;
+        if(filename.find(".wav")){
+            std::thread audioThread(&ResponseHandler::playAudio, &audioGenerator, filename);
+            audioThread.detach();
+        }else{
+            std::cout << filename << std::endl;
+        }
+        std::cout << "Oblivion> ";
+        for(char c: response){
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            std::cout << c << std::flush;
+        }
     } else if(response != "") {
-        // Otherwise → treat as system command
-        // std::cout << "Executing: " << response << std::endl;
         bool ok = parser.executeCommand(response);
         if (!ok) {
             std::cout << "Failed to run command!" << std::endl;
         }
     }
 }
-
-
-
     return 0;
 }

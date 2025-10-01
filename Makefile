@@ -1,11 +1,24 @@
-# Simple oblivion Makefile
-build:
-	g++ -std=c++17 -Iinclude -IC://libcurl/include include/Engine.cpp include/CommandParser.cpp include/ResponseHandler.cpp include/Conversation.cpp main.cpp -LC://libcurl/lib -lcurl -o oblivion.exe
+# Simple oblivion Makefile (Windows focused)
 
-run:
-	./oblivion.exe
+CXX = g++
+CXXFLAGS = -std=c++17
+INCLUDES = -Iinclude -IC:/libcurl/include
+LIBS = -LC:/libcurl/lib -lcurl -lwinmm
+SOURCES = include/Engine.cpp include/CommandParser.cpp include/ResponseHandler.cpp include/Conversation.cpp main.cpp
+TARGET = oblivion.exe
+
+build:
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SOURCES) $(LIBS) -o $(TARGET)
+
+run: 
+	./$(TARGET)
 
 clean:
-	del oblivion.exe
+	del /f /q $(TARGET)
 
-all: build run
+debug: CXXFLAGS += -g -DDEBUG
+debug: build
+
+all: build
+
+.PHONY: build run clean debug all
