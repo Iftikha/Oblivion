@@ -22,8 +22,8 @@ Oblivion is a modern C++ application that brings the power of large language mod
 ## 🌟 Key Features
 
 ### 🔥 New in `v3.0` branch
--- Unnecessary API calls canceled.
--- TTS integratred
+- Unnecessary API calls canceled.
+- TTS integratred
 
 ---
 
